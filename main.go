@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bnf-ifg/symbolList"
+	"bnf-ifg/tape"
 	"fmt"
 )
 
@@ -10,7 +10,7 @@ S -> iCtSA
 A -> ;eS | epsilon
 */
 func main() {
-	tape := symbolList.New(5)
-	fmt.Println("Tape: ", tape)
-	tape.MakeProductions()
+	t := tape.New(5)
+	fmt.Println("Tape: ", t)
+	t.MakeProductions()
 }
