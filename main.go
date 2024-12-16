@@ -10,7 +10,7 @@ S -> iCtSA
 A -> ;eS | epsilon
 */
 func main() {
-	t := tape.New(5)
+	t := tape.New()
 	fmt.Println("Tape: ", t)
-	t.MakeProductions()
+	t.MakeProductions(5)
 }
