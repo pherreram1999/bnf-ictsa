@@ -43,6 +43,23 @@ func insertFromString(list **CellNode, symbols string) {
 	}
 }
 
+func getLastNode(list **CellNode) *CellNode {
+	nav := *list
+	for nav.Right != nil {
+		nav = nav.Right
+	}
+	return nav
+}
+
+func listToString(list **CellNode) string {
+	nav := *list
+	str := ""
+	for nav != nil {
+		str += string(nav.Symbol)
+	}
+	return str
+}
+
 func (tape *Tape) Add(symbol rune) *CellNode {
 	insertNode(&tape.SymbolCell, symbol)
 	tape.Length++
@@ -84,12 +101,9 @@ func (t *Tape) backusNor(cell *CellNode) {
 	if t.IFsLen >= t.MaxIFs {
 		return // llegamos a los ifs deseados
 	}
-	fmt.Printf("%s (%s) - %p\n", t, cell, t)
-	time.Sleep(time.Second)
+	fmt.Printf("%s (%s)\n", t, cell)
 
-	var lastNode *CellNode
 	if cell.Symbol == 'S' || cell.Symbol == 'A' {
-		t.SymbolCell = cell
 		left := cell.Left
 		end := cell.Right
 		var newTape *CellNode
@@ -102,7 +116,8 @@ func (t *Tape) backusNor(cell *CellNode) {
 
 		if left != nil {
 			left.Right = newTape
-		} // TODO check last node
+		}
+		lastNode := getLastNode(&newTape)
 		lastNode.Right = end
 		if end != nil {
 			end.Left = lastNode
